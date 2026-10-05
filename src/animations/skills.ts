@@ -16,7 +16,7 @@ export function buildSkills(section: HTMLElement, { motion }: MotionConditions) 
   q<HTMLElement>("[data-cluster]").forEach((cluster, i) => {
     const sel = gsap.utils.selector(cluster);
     gsap
-      .timeline({ scrollTrigger: { trigger: cluster, start: "top 82%", once: true }, delay: i * 0.1 })
+      .timeline({ scrollTrigger: { trigger: cluster, start: "top 82%", toggleActions: "play none none none" }, delay: i * 0.1 })
       .from(sel("[data-cluster-head]"), { y: 16, autoAlpha: 0, duration: 0.6, ease: "power3.out" })
       .from(sel("[data-bus]"), { scaleY: 0, transformOrigin: "50% 0%", duration: 0.9, ease: "power2.inOut" }, 0.15)
       .from(sel("[data-branch]"), { scaleX: 0, transformOrigin: "0% 50%", duration: 0.35, stagger: 0.06, ease: "power2.out" }, 0.45)

@@ -23,7 +23,7 @@ export function maskLines(target: Element | null, { trigger, start = "top 72%", 
         stagger: 0.09,
         delay,
         ease: "expo.out",
-        scrollTrigger: { trigger, start, once: true },
+        scrollTrigger: { trigger, start, toggleActions: "play none none none" },
       }),
   });
 }
@@ -48,7 +48,7 @@ export function slideWords(target: Element | null, { trigger, start = "top 72%",
         stagger: 0.05,
         delay,
         ease: "power3.out",
-        scrollTrigger: { trigger, start, once: true },
+        scrollTrigger: { trigger, start, toggleActions: "play none none none" },
       }),
   });
 }
@@ -62,6 +62,6 @@ export function rise(targets: gsap.TweenTarget, { trigger, start = "top 72%", de
     stagger,
     delay,
     ease: "power3.out",
-    scrollTrigger: { trigger, start, once: true },
+    scrollTrigger: { trigger, start, toggleActions: "play none none none" },
   });
 }

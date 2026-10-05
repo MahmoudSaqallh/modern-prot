@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { Project } from "@/data/projects";
+import { ImageSlider } from "./ImageSlider";
 import { ProjectScreen } from "./ProjectScreens";
 
 /** Root font size of the generated preview, relative to the screen width. */
@@ -24,14 +25,19 @@ const SIZES: Record<Project["device"], string> = {
 export function DeviceFrame({ project }: { project: Project }) {
   const { device } = project;
 
-  const screen = (
+  const screen = project.gallery ? (
+    // Several screens: a slider fills the display (not scaled, so the controls stay inside).
+    <div className="device-screen relative">
+      <ImageSlider slides={project.gallery} label={project.title} sizes={SIZES[device]} size="full" />
+    </div>
+  ) : (
     <div className="device-screen @container">
       <div data-project-screen className="relative h-full w-full scale-[1.06]">
         {project.image ? (
           <Image src={project.image} alt="" fill sizes={SIZES[device]} className="object-cover object-top" />
         ) : (
           <div className="h-full w-full" style={{ fontSize: PREVIEW_SCALE[device] }}>
-            <ProjectScreen kind={project.preview} />
+            <ProjectScreen kind={project.preview ?? "saas"} />
           </div>
         )}
       </div>
@@ -40,8 +46,8 @@ export function DeviceFrame({ project }: { project: Project }) {
 
   return (
     <div
-      role="img"
-      aria-label={`${project.title} interface on a ${device === "browser" ? "browser window" : device}`}
+      role={project.gallery ? undefined : "img"}
+      aria-label={project.gallery ? undefined : `${project.title} interface on a ${device === "browser" ? "browser window" : device}`}
       className={`device device-${device}`}
     >
       {device === "browser" && (

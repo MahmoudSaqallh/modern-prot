@@ -20,6 +20,6 @@ export function buildTerminal(root: HTMLElement, { motion }: MotionConditions) {
     duration: 1.2,
     ease: "expo.out",
     clearProps: "transform",
-    scrollTrigger: { trigger: root, start: "top 70%", once: true },
+    scrollTrigger: { trigger: root, start: "top 70%", toggleActions: "play none none none" },
   });
 }

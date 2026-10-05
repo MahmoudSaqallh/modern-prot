@@ -20,7 +20,7 @@ export function buildContact(root: HTMLElement, { motion }: MotionConditions) {
   const title = maskChars(q("[data-contact-title]")[0] ?? null);
   const stopStatus = bootStatus(q<HTMLElement>("[data-status]")[0] ?? null, q("[data-contact-final]")[0] ?? root);
 
-  const tl = gsap.timeline({ scrollTrigger: { trigger: root, start: "top 70%", once: true } });
+  const tl = gsap.timeline({ scrollTrigger: { trigger: root, start: "top 70%", toggleActions: "play none none none" } });
   if (title) tl.from(title.chars, { yPercent: 115, duration: 1, stagger: 0.022, ease: "expo.out" }, 0);
   tl.from(q("[data-contact-copy]"), { y: 14, autoAlpha: 0, duration: 0.6, stagger: 0.08 }, 0.35)
     .from(q("[data-contact-status]"), { autoAlpha: 0, x: -10, duration: 0.5 }, 0.65)

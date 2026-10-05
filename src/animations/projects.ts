@@ -30,15 +30,22 @@ export function animateFilter(state: Flip.FlipState) {
 export function revealCards(container: HTMLElement) {
   const cards = container.querySelectorAll("[data-card]");
   if (!cards.length) return () => {};
+  // Reveal each card once. Tracked here rather than with `once: true`: a
+  // self-killing trigger inside a ScrollTrigger refresh (page restored already
+  // scrolled) shrinks the trigger list mid-loop and GSAP throws reading 'end'.
+  const shown = new WeakSet<Element>();
   const triggers = ScrollTrigger.batch(cards, {
     start: "top 88%",
-    once: true,
-    onEnter: (batch) =>
+    onEnter: (batch) => {
+      const fresh = batch.filter((card) => !shown.has(card));
+      if (!fresh.length) return;
+      fresh.forEach((card) => shown.add(card));
       gsap.fromTo(
-        batch,
+        fresh,
         { y: 40, autoAlpha: 0 },
         { y: 0, autoAlpha: 1, duration: 0.9, stagger: 0.08, ease: "power3.out", clearProps: "transform" },
-      ),
+      );
+    },
   });
   // Hide cards below the fold until their batch enters (only when motion is allowed).
   gsap.set(Array.from(cards).filter((c) => c.getBoundingClientRect().top > window.innerHeight), { autoAlpha: 0 });

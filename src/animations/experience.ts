@@ -28,7 +28,7 @@ export function buildExperience(section: HTMLElement, { motion }: MotionConditio
         duration: 1.2,
         ease: "expo.out",
         clearProps: "clipPath",
-        scrollTrigger: { trigger: entry, start: "top 62%", once: true },
+        scrollTrigger: { trigger: entry, start: "top 62%", toggleActions: "play none none none" },
       },
     );
     // The node lights when the growing line reaches it.

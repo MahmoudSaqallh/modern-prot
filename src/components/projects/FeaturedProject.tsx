@@ -38,7 +38,7 @@ export function FeaturedProject({ project, onOpen }: { project: Project; onOpen:
         <p data-depth="4" className="eyebrow flex flex-wrap items-center gap-2.5">
           <span className="rounded-[3px] border border-line-strong px-1.5 py-0.5 text-[10px] text-fg">Featured</span>
           <span style={{ color: project.accent }}>{project.type}</span>
-          <span className="text-dim">{project.year}</span>
+          <span className="text-dim">{project.year ?? project.category[0]}</span>
         </p>
         <h3
           id={headingId}
@@ -50,7 +50,7 @@ export function FeaturedProject({ project, onOpen }: { project: Project; onOpen:
             className="text-left after:absolute after:inset-0 after:z-[2]"
           >
             <span className="inline-block transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover/card:translate-x-1">{project.title}</span>
-            <span className="sr-only">, open case study</span>
+            <span className="sr-only">, open project details</span>
           </button>
         </h3>
         <p className="mt-4 text-pretty leading-relaxed text-muted">{project.description}</p>

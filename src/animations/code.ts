@@ -30,7 +30,7 @@ export function bootStatus(el: HTMLElement | null, trigger: Element) {
   const text = el.dataset.status ?? "";
   el.dataset.typing = "true";
   const tween = typeText(el, text, { cps: 46 }).pause();
-  gsap.timeline({ scrollTrigger: { trigger, start: "top 70%", once: true, onEnter: () => tween.play() } });
+  gsap.timeline({ scrollTrigger: { trigger, start: "top 70%", toggleActions: "play none none none", onEnter: () => tween.play() } });
   return () => {
     tween.kill();
     el.textContent = "";

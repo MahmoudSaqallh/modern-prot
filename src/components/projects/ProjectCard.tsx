@@ -40,7 +40,7 @@ export function ProjectCard({ project, onOpen }: { project: Project; onOpen: Ope
         <p data-depth="4" className="eyebrow flex items-center gap-2.5">
           <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full" style={{ background: project.accent }} />
           <span className="text-fg">{project.type}</span>
-          <span className="text-dim">{project.year}</span>
+          <span className="text-dim">{project.year ?? project.category[0]}</span>
         </p>
         <h3
           id={headingId}
@@ -53,7 +53,7 @@ export function ProjectCard({ project, onOpen }: { project: Project; onOpen: Ope
             className="text-left after:absolute after:inset-0 after:z-[2] after:rounded-md"
           >
             <span className="inline-block transition-transform duration-500 ease-[var(--ease-out-expo)] group-hover/card:translate-x-1">{project.title}</span>
-            <span className="sr-only">, open case study</span>
+            <span className="sr-only">, open project details</span>
           </button>
         </h3>
         <p className="mt-2 text-pretty text-[0.9375rem] leading-relaxed text-muted">{project.description}</p>

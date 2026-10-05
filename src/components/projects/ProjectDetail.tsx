@@ -119,7 +119,7 @@ export function ProjectDetail({ project, origin, onClose }: ProjectDetailProps) 
           <div className="lg:col-span-5">
             <p data-detail-reveal className="eyebrow flex flex-wrap items-center gap-2.5">
               <span style={{ color: project.accent }}>{project.type}</span>
-              <span className="text-dim">{project.year}</span>
+              <span className="text-dim">{project.year ?? project.category[0]}</span>
               <span className="font-mono normal-case tracking-normal text-dim">· /projects/{project.slug}</span>
             </p>
             <h2 id={headingId} data-detail-reveal className="display-lg mt-4">

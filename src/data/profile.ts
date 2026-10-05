@@ -36,11 +36,13 @@ export const profile: Profile = {
   intro:
     "From React and Next.js interfaces to Node.js and Express APIs on MongoDB, and Flutter apps that share the same backend.",
   focus: "Full stack web platforms with a companion Flutter app.",
-  email: "hello@example.com",
-  github: "https://github.com/your-username",
-  linkedin: "https://www.linkedin.com/in/your-username",
-  cvUrl: "/cv.pdf",
+  email: "adamsakallh@gmail.com",
+  github: "https://github.com/MahmoudSaqallh",
+  linkedin: "https://www.linkedin.com/in/mahmoudsaqallah",
+  cvUrl: "/MahmoudSaqallh.pdf",
   avatar: "/profile.webp",
+  whatsapp: "+972 59 966 3952",
+  location: "Gaza, Palestine",
   // Shown in the contact section as the system status. Edit or remove as needed.
   availability: "Available for work",
   availableFor: ["MERN Stack", "Next.js", "Flutter", "Full Stack Development"],

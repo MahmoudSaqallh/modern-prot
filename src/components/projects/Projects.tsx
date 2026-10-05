@@ -88,8 +88,8 @@ export function Projects() {
     <section ref={scope} id="projects" data-world="projects" data-world-anchor="top" data-nav="projects" aria-labelledby="projects-title" className="relative py-28 lg:py-36">
       <div className="container-x">
         <div data-projects-header className="grid gap-8 lg:grid-cols-12 lg:items-end">
-          <ChapterHeading id="projects-title" index="08" label="Selected work" title="Products shipped end to end." size="lg" className="lg:col-span-8">
-            Web platforms, Flutter apps and the APIs between them — designed, built and deployed.
+          <ChapterHeading id="projects-title" index="08" label="Selected work" title="Built, shipped and live." size="lg" className="lg:col-span-8">
+            Websites and web apps in English and Arabic — from hand-coded HTML, CSS and JavaScript to React and Next.js products.
           </ChapterHeading>
 
           <div data-filters className="lg:col-span-4 lg:justify-self-end">

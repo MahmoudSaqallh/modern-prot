@@ -34,7 +34,7 @@ export function About() {
         duration: 1,
         stagger: 0.025,
         ease: "expo.out",
-        scrollTrigger: { trigger: root, start: "top 65%", once: true },
+        scrollTrigger: { trigger: root, start: "top 65%", toggleActions: "play none none none" },
       });
     }
     rise(q("[data-reveal='fade']"), { trigger: root, start: "top 60%", delay: 0.3 }, 0.08);
@@ -46,7 +46,7 @@ export function About() {
       duration: 0.8,
       stagger: 0.07,
       ease: "power3.out",
-      scrollTrigger: { trigger: q("[data-identities]")[0] ?? root, start: "top 85%", once: true },
+      scrollTrigger: { trigger: q("[data-identities]")[0] ?? root, start: "top 85%", toggleActions: "play none none none" },
     });
     gsap.from(q("[data-editor]"), {
       y: 60,
@@ -55,13 +55,13 @@ export function About() {
       autoAlpha: 0,
       duration: 1.3,
       ease: "expo.out",
-      scrollTrigger: { trigger: root, start: "top 55%", once: true },
+      scrollTrigger: { trigger: root, start: "top 55%", toggleActions: "play none none none" },
     });
     // Portrait: masked reveal from the bottom, the photo settles from a slight zoom.
     const portrait = q("[data-portrait-frame]")[0];
     if (portrait) {
       gsap
-        .timeline({ scrollTrigger: { trigger: portrait, start: "top 80%", once: true } })
+        .timeline({ scrollTrigger: { trigger: portrait, start: "top 80%", toggleActions: "play none none none" } })
         .fromTo(portrait, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.2, ease: "expo.inOut", clearProps: "clipPath" })
         .from(q("[data-portrait-image]"), { scale: 1.14, duration: 1.6, ease: "expo.out" }, 0.1)
         .from(q("[data-portrait-stack] > span:not([aria-hidden])"), { scale: 0.5, autoAlpha: 0, duration: 0.5, stagger: 0.05, ease: "back.out(2)" }, 0.7);

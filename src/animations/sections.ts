@@ -29,7 +29,7 @@ export function buildChapter(section: HTMLElement, { motion, desktop }: MotionCo
         duration: 1.3,
         ease: "expo.out",
         clearProps: "clipPath",
-        scrollTrigger: { trigger: content, start: "top 72%", once: true },
+        scrollTrigger: { trigger: content, start: "top 72%", toggleActions: "play none none none" },
       },
     );
   }
@@ -45,7 +45,7 @@ export function buildChapter(section: HTMLElement, { motion, desktop }: MotionCo
       duration: 0.8,
       stagger: 0.06,
       ease: "power3.out",
-      scrollTrigger: { trigger: items[0], start: "top 88%", once: true },
+      scrollTrigger: { trigger: items[0], start: "top 88%", toggleActions: "play none none none" },
     });
   }
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { MeshBasicMaterial, PlaneGeometry, Vector3, type Group } from "three";
 import { projects, type Project } from "@/data/projects";
@@ -19,8 +19,24 @@ const INDEX = worldIndex("projects");
 const W = 3.2;
 const H = 2;
 
-function panelPainter(project: Project): Painter {
-  return (ctx, w, h) => {
+/** Small optimised copy of the screenshot (Next image optimiser), enough for a panel. */
+const shotUrl = (src: string) => `/_next/image?url=${encodeURIComponent(src)}&w=640&q=75`;
+
+/** Draw `img` to fill the rect (cover, anchored to the top like the cards). */
+function drawCover(ctx: CanvasRenderingContext2D, img: HTMLImageElement, x: number, y: number, w: number, h: number) {
+  const scale = Math.max(w / img.naturalWidth, h / img.naturalHeight);
+  const sw = w / scale;
+  const sh = h / scale;
+  ctx.drawImage(img, (img.naturalWidth - sw) / 2, 0, sw, sh, x, y, w, h);
+}
+
+function panelPainter(project: Project, shot: HTMLImageElement | null): Painter {
+  return (ctx, width, height) => {
+    // Laid out on a 640×400 design canvas, scaled to the tier's texture size.
+    const w = 640;
+    const h = 400;
+    ctx.save();
+    ctx.scale(width / w, height / h);
     const mono = fontStack("mono");
     const sans = fontStack("sans");
     ctx.fillStyle = "rgba(12,14,18,0.95)";
@@ -31,29 +47,40 @@ function panelPainter(project: Project): Painter {
     ctx.stroke();
     ctx.fillStyle = project.accent;
     ctx.fillRect(2, 2, w - 4, 6);
-    ctx.font = `500 20px ${mono}`;
+    ctx.font = `500 17px ${mono}`;
     ctx.fillStyle = project.accent;
-    ctx.fillText(project.type.toUpperCase(), 32, 52);
-    ctx.font = `600 52px ${sans}`;
+    ctx.fillText(project.type.toUpperCase(), 26, 40);
+    ctx.font = `600 38px ${sans}`;
     ctx.fillStyle = "#f5f7fa";
-    ctx.fillText(project.title, 30, 116);
-    // Mini interface sketch.
+    ctx.fillText(project.title, 24, 84, w - 48);
+
+    // The real screenshot once loaded; a mini interface sketch until then.
+    const [sx, sy, sw, sh] = [24, 104, w - 48, 240];
     ctx.fillStyle = "rgba(245,247,250,0.06)";
-    roundRect(ctx, 30, 150, w - 60, h - 230, 12);
+    roundRect(ctx, sx, sy, sw, sh, 10);
     ctx.fill();
-    ctx.fillStyle = "rgba(245,247,250,0.16)";
-    for (let i = 0; i < 4; i++) {
-      roundRect(ctx, 52, 176 + i * 30, (w - 200) * (0.9 - i * 0.15), 12, 6);
+    if (shot) {
+      ctx.save();
+      roundRect(ctx, sx, sy, sw, sh, 10);
+      ctx.clip();
+      drawCover(ctx, shot, sx, sy, sw, sh);
+      ctx.restore();
+    } else {
+      ctx.fillStyle = "rgba(245,247,250,0.16)";
+      for (let i = 0; i < 4; i++) {
+        roundRect(ctx, sx + 22, sy + 28 + i * 30, (sw - 200) * (0.9 - i * 0.15), 12, 6);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 0.35;
+      ctx.fillStyle = project.accent;
+      roundRect(ctx, sx + sw - 160, sy + 28, 136, 110, 10);
       ctx.fill();
+      ctx.globalAlpha = 1;
     }
-    ctx.globalAlpha = 0.35;
-    ctx.fillStyle = project.accent;
-    roundRect(ctx, w - 190, 176, 136, 110, 10);
-    ctx.fill();
-    ctx.globalAlpha = 1;
-    ctx.font = `400 20px ${mono}`;
+    ctx.font = `400 17px ${mono}`;
     ctx.fillStyle = "rgba(139,145,156,0.9)";
-    ctx.fillText(project.stack.map((s) => techById[s].name).join(" · "), 32, h - 40, w - 64);
+    ctx.fillText(project.stack.map((s) => techById[s].name).join(" · "), 26, h - 24, w - 52);
+    ctx.restore();
   };
 }
 
@@ -66,6 +93,10 @@ const LAYOUT: [number, number, number][] = [
   [-5.2, -3.7, -5.5],
   [0.2, -4.3, -6.5],
   [5.4, -3.5, -5.5],
+  [-6.6, -6.8, -6.2],
+  [-1.6, -7.4, -7],
+  [3.6, -7, -6.4],
+  [8.2, -6.4, -6.8],
 ];
 
 const FOCUS = new Vector3(0, 0.3, 4.2);
@@ -101,7 +132,22 @@ function Panel({ project, index }: { project: Project; index: number }) {
   const target = useMemo(() => new Vector3(), []);
   const focus = useRef(0);
 
-  const painter = useMemo(() => panelPainter(project), [project]);
+  // Screenshot loads in the background; the panel repaints with it when ready.
+  const [shot, setShot] = useState<HTMLImageElement | null>(null);
+  useEffect(() => {
+    if (!project.image) return;
+    let alive = true;
+    const img = new Image();
+    img.decoding = "async";
+    img.onload = () => alive && setShot(img);
+    img.src = shotUrl(project.image);
+    return () => {
+      alive = false;
+      img.onload = null;
+    };
+  }, [project.image]);
+
+  const painter = useMemo(() => panelPainter(project, shot), [project, shot]);
   const texture = useCanvasTexture(tier === "high" ? 640 : 448, tier === "high" ? 400 : 280, painter);
   const plane = useDisposable(() => new PlaneGeometry(W, H), []);
   const material = useDisposable(() => new MeshBasicMaterial({ map: texture, transparent: true, depthWrite: false, toneMapped: false }), [texture]);

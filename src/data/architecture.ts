@@ -49,17 +49,17 @@ export const mobileScreens = [
 /** Sample collections for the database visual. */
 export const collections: { name: string; count: number; sample: Record<string, string> }[] = [
   { name: "users", count: 1284, sample: { _id: 'ObjectId("66f1…a3")', name: '"Sara Haddad"', role: '"customer"', createdAt: 'ISODate("2025-03-02")' } },
-  { name: "projects", count: 42, sample: { _id: 'ObjectId("66f2…7c")', title: '"Fleetline"', stack: '["MERN", "Flutter"]', status: '"live"' } },
+  { name: "projects", count: 10, sample: { _id: 'ObjectId("66f2…7c")', title: '"Dqq"', stack: '["Next.js", "React"]', status: '"live"' } },
   { name: "orders", count: 9631, sample: { _id: 'ObjectId("66f3…19")', userId: 'ObjectId("66f1…a3")', total: "148.5", status: '"delivered"' } },
   { name: "messages", count: 20417, sample: { _id: 'ObjectId("66f4…e0")', room: '"order:4821"', body: '"On my way"', sentAt: 'ISODate("2025-03-02")' } },
 ];
 
 export const apiResponse = `{
   "data": [
-    { "title": "Fleetline", "stack": ["MERN", "Flutter"] },
-    { "title": "Pulse Analytics", "stack": ["Next.js"] }
+    { "title": "Dqq", "stack": ["Next.js", "React"] },
+    { "title": "Orvena", "stack": ["Next.js", "React"] }
   ],
-  "total": 42
+  "total": 10
 }`;
 
 /** Frontend architecture layers shown in the 3D browser (front to back). */
