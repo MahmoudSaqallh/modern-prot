@@ -3,12 +3,15 @@ import type { TechId } from "./technologies";
 // Selected work. Screenshots live in /public/projects; every project links to
 // its live deployment where one exists.
 
-export const projectFilters = ["All", "HTML / CSS / JS", "Next.js / React"] as const;
+export const projectFilters = ["All", "HTML / CSS / JS", "Next.js / React", "Three.js"] as const;
 export type ProjectFilter = (typeof projectFilters)[number];
 
 export type ProjectType =
   | "Warehouse SaaS"
   | "Admin Dashboard"
+  | "Logistics Platform"
+  | "Restaurant Website"
+  | "3D Virtual Mall"
   | "Collaboration App"
   | "Healthcare Website"
   | "E-commerce Store"
@@ -88,6 +91,33 @@ export const projects: Project[] = [
     accent: "#34c26b",
   },
   {
+    slug: "logisphere",
+    title: "Logisphere",
+    type: "Logistics Platform",
+    category: ["Next.js / React"],
+    description:
+      "Delivery and logistics operations platform: fleet management, shipment tracking and delivery optimisation, with a real-time 3D truck model and the shipment → dispatch → driver → delivery flow.",
+    stack: NEXT,
+    lang: "en",
+    device: "browser",
+    image: "/projects/logisphere.webp",
+    liveUrl: "https://dilivery-tau.vercel.app/",
+    accent: "#ff8a3d",
+  },
+  {
+    slug: "jamra",
+    title: "Jamra",
+    type: "Restaurant Website",
+    category: ["Next.js / React"],
+    description: "Arabic restaurant website with menu, offers, favourites and cart, opening hours and an order-now flow from the first click.",
+    stack: NEXT,
+    lang: "ar",
+    device: "browser",
+    image: "/projects/jamra.webp",
+    liveUrl: "https://resturent-steel.vercel.app/",
+    accent: "#e8552b",
+  },
+  {
     slug: "orvena",
     title: "Orvena",
     type: "E-commerce Store",
@@ -125,6 +155,21 @@ export const projects: Project[] = [
     image: "/projects/travelor.png",
     liveUrl: "https://travelor-pjsm.vercel.app/",
     accent: "#8bd400",
+  },
+  {
+    slug: "mallverse",
+    title: "MallVerse",
+    type: "3D Virtual Mall",
+    category: ["Three.js"],
+    description:
+      "An explorable 3D shopping mall in the browser: walk an avatar through the atrium and six boutiques, inspect products in 3D and fill a demo cart, with a minimap, floor levels, day/night mode and an assistant.",
+    stack: ["threejs", "react", "nextjs"],
+    lang: "en",
+    device: "laptop",
+    image: "/projects/mallverse.webp",
+    liveUrl: "https://moal-zeta.vercel.app/",
+    featured: true,
+    accent: "#d9a35f",
   },
   {
     slug: "smartboard",
