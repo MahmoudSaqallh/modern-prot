@@ -118,6 +118,20 @@ export const projects: Project[] = [
     accent: "#e8552b",
   },
   {
+    slug: "sofra",
+    title: "Sofra",
+    type: "Restaurant Website",
+    category: ["Next.js / React"],
+    description:
+      "Arabic restaurant website for a contemporary Arab kitchen: menu, branches, table reservations and ordering, with cart, favourites and notifications.",
+    stack: NEXT,
+    lang: "ar",
+    device: "browser",
+    image: "/projects/sofra.webp",
+    liveUrl: "https://sofra-plum.vercel.app/",
+    accent: "#c9a25e",
+  },
+  {
     slug: "orvena",
     title: "Orvena",
     type: "E-commerce Store",
