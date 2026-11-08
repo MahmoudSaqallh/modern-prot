@@ -9,6 +9,7 @@ export type ProjectFilter = (typeof projectFilters)[number];
 export type ProjectType =
   | "Warehouse SaaS"
   | "Admin Dashboard"
+  | "Fitness Dashboard"
   | "Logistics Platform"
   | "Restaurant Website"
   | "3D Virtual Mall"
@@ -89,6 +90,20 @@ export const projects: Project[] = [
       { src: "/dashboard/dqq-dashboard-4.webp", caption: "Delay management" },
     ],
     accent: "#34c26b",
+  },
+  {
+    slug: "kinora",
+    title: "Kinora",
+    type: "Fitness Dashboard",
+    category: ["Next.js / React"],
+    description:
+      "Arabic fitness dashboard that brings activity progress, calories and macros, heart rate, sleep tracking and upcoming workouts into one view, with an AI assistant, nutrition plans and a community space.",
+    stack: NEXT,
+    lang: "ar",
+    device: "desktop",
+    image: "/projects/kinora.webp",
+    liveUrl: "https://gym-nine-sigma.vercel.app/login",
+    accent: "#9be000",
   },
   {
     slug: "logisphere",

@@ -101,6 +101,7 @@ const LAYOUT: [number, number, number][] = [
   [3, -10.4, -6.6],
   [7.6, -9.8, -6.2],
   [-0.8, -12.6, -6.8],
+  [5.2, -13, -6.4],
 ];
 
 const FOCUS = new Vector3(0, 0.3, 4.2);
